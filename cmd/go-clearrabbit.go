@@ -69,12 +69,6 @@ func init() {
 
 func main() {
 
-	//start program
-	filer, err = os.OpenFile(logFileName, os.O_TRUNC|os.O_CREATE|os.O_WRONLY, 0666)
-	if err != nil {
-		logs.ProcessPanic(err)
-	}
-
 	logs.ProcessInfo("- - - - - - - - - - - - - - -")
 	logs.ProcessInfo("Start Clear All queues ")
 
@@ -87,8 +81,6 @@ func main() {
 	flag.BoolVar(&help, "h", false, "Use -h for help")
 	flag.Parse()
 
-	readconf(&cfg, confname)
-
 	//Получение помощи
 	if help {
 		data.Helpstart()
@@ -100,6 +92,8 @@ func main() {
 		fmt.Println("Version utils " + versionutil)
 		return
 	}
+
+	readconf(&cfg, confname)
 
 	if LoginRabbit == "" || PassRabbit == "" {
 		logs.ProcessInfo("Please set your login, password")
